@@ -2,10 +2,11 @@ language: groovy
 jdk:
 - openjdk7
 before_install:
-  - cat /etc/hosts # optionally check the content *before*
-  - sudo hostname "$(hostname | cut -c1-63)"
-  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
-  - cat /etc/hosts # optionally check the content *after*
+- cat /etc/hosts
+- sudo hostname "$(hostname | cut -c1-63)"
+- sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo
+  tee /etc/hosts
+- cat /etc/hosts
 before_script:
 - rm -rf build
 script: ./travis-build.sh
@@ -13,3 +14,8 @@ env:
   global:
   - GIT_NAME="Jeff Scott Brown"
   - GIT_EMAIL="brownj@ociweb.com"
+  - secure: Q0nVmUH9Fmw+RKtSbbBhQqRsCHBRwXpgTXkAJYNyH3OlDNOSWYtlJ3jT9bnRifvlsXY0QjmFXK05fd9sjvW8ry98Tipimo9HUgJ6ww5iU64JrcyJJ+3e95lJMQPhLNTDvBUKQkEAArqxke9OfNfzbjIKnx0bgVRrAMDYedTQOgvEkUdaXBDpklCFMkSj2f6ww9V+kNGe51jQ9EwddjD4jKjf/YEy8tqkaqYJ6i4B5Vdg0uPk87GWWo/THfK+tXWslmxu6cxrUHL9+gGravgiIpbR+tvQFxx3r2rOirCEox2/yQmVxeoexuqykBXFzPjPxTIataVDnPVQZBqiCty3BWcPtv74moaju1swZQhPYZQXwiHZZH6IapIWitOC7Li3duqHGVspyoenGbQ9x10DfWhPGVevhXCy59TyqSeWthZc3MNOja9GjbC2kmjBnN4Gb6Er8s5KRlcrHsfYLoxac8PqoWZ0n2Yshvs2ie9GS/Agbm4/x1blQivEE9ESZ0mDIifX7aTiz5RKfM/1jZ7jippLxvaxPbmrTQ9lKOgk/MuBHOCp59zj/457gNxhapH4zdoXdJz773gYf+giVL5/hLcdU4XMNPsqVy2XZz0TXVy4z8m6AKqPMavYcRCoH0HdSPlPyx2uVntPgUL+eq+ZRIJ4Nt6Kon8HdUI37wRHFaw=
+  - secure: bnyn6Gz6Wae37JtZ/wldoCBwZ7y01u1xCc7BirjTmpHP9c3xio8PfsJkimmQy5N4Yk0fwkQlsfR6aT1rxF8vnSjK2ER45w39VmAxrkZ8QXFIztBuub7izkY2SPetDlxPT2lZcVts+SkZ49G9mOtw/o0RLVC+g1GbYuRlIE+m5kP3voGpav6rbcnP5uvF1eOUNhZfPGY1aPwjjh7HPjyUcl9/KlFgJj5dDb5xVqjgaCrK/VbMlOIJgWNXuuy9mDVpjgywLfw3Ou3DYPlKLul8EMHT9SM7TOZ8M57KSPaHs0TI2XSgUC3Nq/tdIJSUgOzk6ttOJsh8gv2mQ0DpauqKWGBVj1fwdHTop3S6y2ElXpJWgEWfqgVRAhDv+MU8i6rRCmc1Ehlsofa6HlturrAnzE/lzFVGlO01/6/d3JJjp/w6XeEK75HoLW3VUI2g1NKpR05+Afsfyrov0ps7ZV1ghLVF+1hAGhuH+poHO+1yIigG5Sh5jT7qqP1jPaAKjV8r1cZN5UUavZxP1rM85dSpuQXz90r3lg6ndstF5GH1SU6EYoEmDgSIPyhQuHarvHKPRvSkHkC5qszyxHstJMZOPnRI1Spk26FRqANTQPeM58etQ+JeX+v+1VPVYU+7g32oPDi5yMXyibW2H+KDhOmQT8eEOSQzs9LXieppD2VncFk=
+  - secure: H8J9/rSPBTnIGPDyAagypxfiMLoBQDbmxXnBZH1Cj319lrED9C2rkZk6GzGfjNZTmRJZbFrJil6LwrzYxgDDamemOcQs1QdqgndlWw8x+4TfKXaflUaI3fGNMTy5nhOWNvBcT/42+/8rxHpaWFs3fs+Fzntw+ptGJxxPVtMNuvFxGtitVUBH5J+O7fbq5In4n5HvPEeoGD/awvUayHk+NBVGvKH5hjcu7NDSMc6rxJ0c5yokTUNingKfmBHG8MnoWUdSdLdoyO86eTl6I/5f53/7p5l2kItLl2fnAu+jaMlhKo6M9kbhLAaYLZrK1GvqnZYvPecphibYniU0+etnPGZf8xPGn+msMAygcsUNFKNLM/GMaEpIDBbC39biQ6baQeY3SxuqME1rUvUlMxtThWSujZjqnaas4avt/E10MQKzMvzBs5Sz3rbIwjsjtPTcqx2cIceScRY1tvizqDJzNpv10eJGFcmYYSFdDNr5d25JmajYuwkFSgGAOOR9GX+iXM4q19zR91qnQXu3m/siftZGnIZbmoFCLvrYzAzk+9WF55UE9+05qYag+1PT7h1fKiB+j2XdHVUP8MR09kka1na16biN7mowoBL5DaCln4idRLfw9LVm4G44sVr+BoSI0mWXgpmdX7mU0hWd0ZMrw9wIJb6B/gER/ql/kJrSlRU=
+  - secure: sTWuSjm60Dwjs5FYZLomoFF7VRxhMHQ9Bm1edEYf4LU2lKI1vTUOjj5D6e2eQs2OwJepJ4IIexaZUL3WnrnLuo1sE2yOITZasUbSotKZ6P/tp7K2i4fLt1jD8tlZF0rXt9ltKGb2YSMdTCsfavc7cwJ9vIz9d3aXHzrcFiqSGm8yObKdvG5n5ehgBLUzyZfTqXQfKgYPefyaJViiBwPpf8OmyjhK2UpYUmxqGSF9vOsbM6GAUGLwwUOEXzc9CFs1iMNg7Vj2ZcQwiHyNApU518i60iiVhPC+gQEfYBKTurHSUQTZYevC0t5ilRbL0ifJN2OGfXe6xFDgIrhIQnF97ojZiWM/RxBjqUn7fKNfkz6+MS5VHUkSDJKYOBLUIFTItnvbsxfwRs9XM7GbBb12+4KLFInjIBM/bExSMex6V6O+x0rWH6bX8m0irhSXL1RddDk7ndAkuZ4lXmUXWBQtTtzxaKV/PIeotCYGCCkjqhymybYy5nWv3Oe8So0NpD7aAtDrxAgwjvOvawuyWnuESBN8yI9KlD9HpnIAgjGZvYE2XSS2Cjq+KdQQF1fyLUF5LkfZGW0xhWd5etZbTrroqPOxwQ03DnWWIgehuC/7KVzM/+/cRPldY/pF4zus4fHPBDgz42UNquksHkewGYYQ+QaQRTsp+TxBj6qfHz3OuN8=
+  - secure: ieGjC6bu1DVflQUsh5VvtCp1ksFaymAOV2gunorIZVc16LWFhpAbQINOFCQqD4LPNDHtR8sFmkOggeVHoWnZPAk5djXfwpk7Q89qrHlZBkne6Qhf+IqyxPEQ5bzxGRBkeLxt52OT4o0H4xrnizl4Y88KkOxmiokbMA5TFReki9TtiH1Bl/B0X0m+kV0Ls+5UMkN9hz4PFzeR3d+yT6E5cSj1xo1AcX4sMvfDQBhAvHf3X+69bJPoB+LC5zawa6RGYnpZ6SDee5r3Tl+SHehZeimQ+h0V6SgcFqUliNh/oYnvyGF3ivRXgN/BBXuikIb8ylDJBxnKeEKmw3Fk06tpuW4XYlhzOiNra4F1Hheufc0T9lNFPk/7TY3wTT7tlKPoGE2GiV9MPd43JweHVwDbxIv+YtyXUgeFRvqs8HdY1OnZoYBGAy3zhW6TjKYpwi59WjiIo+xE+OUpMF361ll9exQtemIIybfN1vcthetErfvt8STxnpkQc4ZwoAjHBUkSkXWFnO+FPqwgnfRjDQfYcDYofKjB5DZVbsNsomhiephe+nt+z5yyIGqHRhRgSQ5ncC8pUDqPtA0ndicO16FzLqCGtK/mnJuz/WvnerLycfCCCMz8X04PUld52tcz0gG9ZPr4Ux/5xn5+FEEqsZPgYc10SStdqokECaX3rhIn/xk=
