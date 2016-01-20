@@ -4,41 +4,29 @@ import grails.plugins.*
 
 class FiltersGrailsPlugin extends Plugin {
 
-    // the version or versions of Grails the plugin is designed for
     def grailsVersion = "3.1.0.RC1 > *"
-    // resources that are excluded from plugin packaging
+
     def pluginExcludes = [
         "grails-app/views/error.gsp"
     ]
 
-    // TODO Fill in these fields
-    def title = "Filters" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def title = "Filters"
+    def author = "Jeff Brown"
+    def authorEmail = "brownj@ociweb.com"
     def description = '''\
-Brief summary/description of the plugin.
+An optional plugin which supports filters support which prior to Grails 3.1 was included in Grails core.
 '''
     def profiles = ['web']
 
-    // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/filters"
 
-    // Extra (optional) plugin metadata
+    def license = "APACHE"
 
-    // License: one of 'APACHE', 'GPL2', 'GPL3'
-//    def license = "APACHE"
+    def organization = [ name: "OCI", url: "http://www.ociweb.com/" ]
 
-    // Details of company behind the plugin (if there is one)
-//    def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+    def issueManagement = [ system: "GitHub", url: "https://github.com/grails-plugins/filters/issues" ]
 
-    // Any additional developers beyond the author specified above.
-//    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
-
-    // Location of the plugin's issue tracker.
-//    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
-
-    // Online location of the plugin's browseable source code.
-//    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
+    def scm = [ url: "https://github.com/grails-plugins/filters" ]
 
     Closure doWithSpring() { {->
             // TODO Implement runtime spring config (optional)
