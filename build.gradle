@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-version "0.1"
+version "1.0.0.BUILD-SNAPSHOT"
 group "filters"
 
 apply plugin:"eclipse"
