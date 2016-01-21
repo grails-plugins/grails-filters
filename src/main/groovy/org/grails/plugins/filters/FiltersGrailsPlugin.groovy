@@ -1,4 +1,4 @@
-package filters
+package org.grails.plugins.filters
 
 import grails.plugins.*
 
