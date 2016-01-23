@@ -1,6 +1,6 @@
 package org.grails.plugins.web.filters
 
-import grails.test.filters.AbstractGrailsControllerTests
+import grails.test.filters.AbstractFilterTests
 import org.grails.web.util.GrailsApplicationAttributes
 import org.grails.web.util.WebUtils
 import org.springframework.web.servlet.HandlerInterceptor
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView
  * @author Graeme Rocher
  * @since 1.0
  */
-class FilterExecutionTests extends AbstractGrailsControllerTests {
+class FilterExecutionTests extends AbstractFilterTests {
 
     protected void onSetUp() {
         FilterConfig.metaClass.getLog = { ->

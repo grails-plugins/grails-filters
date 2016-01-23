@@ -1,13 +1,13 @@
 package org.grails.plugins.web.filters
 
-import grails.test.filters.AbstractGrailsControllerTests
+import grails.test.filters.AbstractFilterTests
 
 
 /**
  * @author Graeme Rocher
  * @since 1.0
  */
-class DefaultGrailsFilterClassTests extends AbstractGrailsControllerTests {
+class DefaultGrailsFilterClassTests extends AbstractFilterTests {
 
     GroovyClassLoader gcl = new GroovyClassLoader()
 

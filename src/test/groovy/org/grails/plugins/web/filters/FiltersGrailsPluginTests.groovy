@@ -1,15 +1,13 @@
 package org.grails.plugins.web.filters
 
 import grails.plugins.GrailsPlugin
-import grails.test.filters.AbstractGrailsControllerTests
-import org.grails.plugins.web.controllers.ControllersGrailsPlugin
-import org.grails.plugins.web.mapping.UrlMappingsGrailsPlugin
+import grails.test.filters.AbstractFilterTests
 
 /**
  * @author Graeme Rocher
  * @since 1.0
  */
-class FiltersGrailsPluginTests extends AbstractGrailsControllerTests {
+class FiltersGrailsPluginTests extends AbstractFilterTests {
 
     protected void onSetUp() {
         gcl.parseClass """

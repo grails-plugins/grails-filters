@@ -24,7 +24,7 @@ import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.web.context.WebApplicationContext
 import org.springframework.web.context.request.RequestContextHolder
 
-abstract class AbstractGrailsControllerTests extends GroovyTestCase {
+abstract class AbstractFilterTests extends GroovyTestCase {
 
 	def servletContext
 	GrailsWebRequest webRequest
