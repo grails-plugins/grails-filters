@@ -1,7 +1,7 @@
 package org.grails.plugins.web.filters
 
 import grails.plugins.GrailsPlugin
-import grails.test.filters.AbstractGrailsPluginTests
+import grails.test.filters.AbstractGrailsControllerTests
 import org.grails.plugins.web.controllers.ControllersGrailsPlugin
 import org.grails.plugins.web.mapping.UrlMappingsGrailsPlugin
 
@@ -9,7 +9,7 @@ import org.grails.plugins.web.mapping.UrlMappingsGrailsPlugin
  * @author Graeme Rocher
  * @since 1.0
  */
-class FiltersGrailsPluginTests extends AbstractGrailsPluginTests {
+class FiltersGrailsPluginTests extends AbstractGrailsControllerTests {
 
     protected void onSetUp() {
         gcl.parseClass """
@@ -28,9 +28,6 @@ class Filters {
         }
     }
 }"""
-        pluginsToLoad << gcl.loadClass(UrlMappingsGrailsPlugin.name)
-        pluginsToLoad << gcl.loadClass(ControllersGrailsPlugin.name)
-        pluginsToLoad << gcl.loadClass("org.grails.plugins.web.filters.FiltersGrailsPlugin")
     }
 
     void testSpringConfig() {
