@@ -1,7 +1,7 @@
 package org.grails.plugins.web.filters
 
 import grails.plugins.GrailsPlugin
-import org.grails.plugins.web.AbstractGrailsPluginTests
+import grails.test.filters.AbstractGrailsPluginTests
 import org.grails.plugins.web.controllers.ControllersGrailsPlugin
 import org.grails.plugins.web.mapping.UrlMappingsGrailsPlugin
 

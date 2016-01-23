@@ -1,6 +1,7 @@
 package org.grails.plugins.web.filters
 
-import org.grails.web.servlet.mvc.AbstractGrailsControllerTests
+import grails.test.filters.AbstractGrailsControllerTests
+
 
 /**
  * @author Graeme Rocher
