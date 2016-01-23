@@ -15,7 +15,7 @@ class FiltersUnitTestSpec extends Specification {
 
     void "test filters are applied for a unit test"() {
         given: "A mock for the injected security service"
-        securityServiceMock = grails.test.mixin.Mock(SecurityService)
+        securityServiceMock = Mock(SecurityService)
         defineBeans {
             securityService(MethodInvokingFactoryBean) {
                 targetObject = this
