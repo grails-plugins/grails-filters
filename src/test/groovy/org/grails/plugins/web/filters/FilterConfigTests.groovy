@@ -22,182 +22,147 @@ import spock.lang.Specification
  *
  * @author pledbrook
  */
-class FilterConfigSpec extends Specification {
+class FilterConfigTests extends GroovyTestCase {
     private static final int INT_PROP_VALUE = 1000
     private static final String STRING_PROP_VALUE = 'Test property'
 
-    void "test Property Missing"() {
-        setup:
+    void testPropertyMissing() {
         def mockDefinition = new MockFiltersDefinition()
         def testFilterConfig = new FilterConfig(name: 'Test filter', initialised: true, filtersDefinition: mockDefinition)
 
-        then:
         // Try property 1 to start with.
-        testFilterConfig.propOne == INT_PROP_VALUE
+        assert testFilterConfig.propOne == INT_PROP_VALUE
 
         // Now try it a couple more times to make sure that the metaclass
         // property has been registered correctly.
-        testFilterConfig.propOne == INT_PROP_VALUE
-        testFilterConfig.propOne == INT_PROP_VALUE
+        assert testFilterConfig.propOne == INT_PROP_VALUE
+        assert testFilterConfig.propOne == INT_PROP_VALUE
 
         // Now try with number 2.
-        testFilterConfig.prop2 == STRING_PROP_VALUE
-        testFilterConfig.prop2 == STRING_PROP_VALUE
-        testFilterConfig.prop2 == STRING_PROP_VALUE
+        assert testFilterConfig.prop2 == STRING_PROP_VALUE
+        assert testFilterConfig.prop2 == STRING_PROP_VALUE
+        assert testFilterConfig.prop2 == STRING_PROP_VALUE
 
         // And now make sure we can still access property 1.
-        testFilterConfig.propOne == INT_PROP_VALUE
+        assert testFilterConfig.propOne == INT_PROP_VALUE
 
-        when: "Any other property access should result in this exception."
-        testFilterConfig.unknownProperty
-
-        then:
-        thrown(MissingPropertyException)
+        // Any other property access should result in this exception.
+        shouldFail(MissingPropertyException) {
+            testFilterConfig.unknownProperty
+        }
     }
 
-    void "test Method Missing"() {
-        setup:
+    void testMethodMissing() {
         def mockDefinition = new MockFiltersDefinition()
         def testFilterConfig = new MethodMissingCountingFilterConfig(name: 'Test filter', initialised: true, filtersDefinition: mockDefinition)
 
-        when: "Try the 'run' method first."
+        // Try the 'run' method first.
         testFilterConfig.run()
+        assert mockDefinition.runCalled
 
-        then:
-        mockDefinition.runCalled
-        testFilterConfig.methodMissingCounter == 1
+        assert testFilterConfig.methodMissingCounter == 1
+
         testFilterConfig.methodMissingCounter = 0
 
         // Now try it a couple more times to make sure that the metaclass
         // method has been registered correctly.
-        when:
         mockDefinition.reset()
         testFilterConfig.run()
+        assert mockDefinition.runCalled
 
-        then:
-        mockDefinition.runCalled
-
-        when:
         mockDefinition.reset()
         testFilterConfig.run()
+        assert mockDefinition.runCalled
 
-        then:
-        mockDefinition.runCalled
-        testFilterConfig.methodMissingCounter == 0
+        assert testFilterConfig.methodMissingCounter == 0
 
-        when: "Now try with the next method."
+        // Now try with the next method.
         mockDefinition.reset()
         mockDefinition.returnValue = 6342
+        assert testFilterConfig.generateNumber() == 6342
+        assert mockDefinition.generateNumberCalled == true
 
-        then:
-        testFilterConfig.generateNumber() == 6342
-        mockDefinition.generateNumberCalled
-
-        when:
         testFilterConfig.methodMissingCounter = 0
+
         mockDefinition.reset()
         mockDefinition.returnValue = '101'
+        assert testFilterConfig.generateNumber() == '101'
+        assert mockDefinition.generateNumberCalled == true
 
-        then:
-        testFilterConfig.generateNumber() == '101'
-        mockDefinition.generateNumberCalled
-
-        when:
         mockDefinition.reset()
         mockDefinition.returnValue = 10.232
+        assert testFilterConfig.generateNumber() == 10.232
+        assert mockDefinition.generateNumberCalled == true
 
-        then:
-        testFilterConfig.generateNumber() == 10.232
-        mockDefinition.generateNumberCalled == true
-        testFilterConfig.methodMissingCounter == 0
+        assert testFilterConfig.methodMissingCounter == 0
 
-        when: "Now for a method with arguments."
+        // Now for a method with arguments.
         mockDefinition.reset()
         mockDefinition.expectedStringArg = 'Test'
         mockDefinition.expectedIntArg = 1000
         testFilterConfig.checkArgs('Test', 1000)
+        assert mockDefinition.checkArgsCalled
 
-        then:
-        mockDefinition.checkArgsCalled
-
-        when:
         testFilterConfig.methodMissingCounter = 0
+
         mockDefinition.reset()
         mockDefinition.expectedStringArg = 'Test two'
         mockDefinition.expectedIntArg = 2000
         testFilterConfig.checkArgs('Test two', 2000)
+        assert mockDefinition.checkArgsCalled
 
-        then:
-        mockDefinition.checkArgsCalled
-
-        when:
         mockDefinition.reset()
         mockDefinition.expectedStringArg = 'Apples'
         mockDefinition.expectedIntArg = -3423
         testFilterConfig.checkArgs('Apples', -3423)
+        assert mockDefinition.checkArgsCalled
 
-        then:
-        mockDefinition.checkArgsCalled
-        testFilterConfig.methodMissingCounter == 0
+        assert testFilterConfig.methodMissingCounter == 0
 
-        when:
         mockDefinition.reset()
         mockDefinition.expectedStringArg = 'Oranges'
         mockDefinition.expectedDoubleArg = 1.23d
         testFilterConfig.checkArgs('Oranges', 1.23d)
+        assert mockDefinition.checkArgsCalled
 
-        then:
-        mockDefinition.checkArgsCalled
-        testFilterConfig.methodMissingCounter == 1
+        assert testFilterConfig.methodMissingCounter == 1
 
-        when:
         testFilterConfig.methodMissingCounter = 0
+
         mockDefinition.reset()
         mockDefinition.expectedStringArg = 'Pears'
         mockDefinition.expectedDoubleArg = 2.56d
         testFilterConfig.checkArgs('Pears', 2.56d)
+        assert mockDefinition.checkArgsCalled
 
-        then:
-        mockDefinition.checkArgsCalled
-        testFilterConfig.methodMissingCounter == 0
+        assert testFilterConfig.methodMissingCounter == 0
 
-        when: "A method that takes a list as an argument."
+        // A method that takes a list as an argument.
         mockDefinition.reset()
+        assert testFilterConfig.sum([1, 2, 3, 4]) == 10
+        assert mockDefinition.sumCalled
 
-        then:
-        testFilterConfig.sum([1, 2, 3, 4]) == 10
-        mockDefinition.sumCalled
-
-        then:
         testFilterConfig.methodMissingCounter = 0
 
-        when:
         mockDefinition.reset()
+        assert testFilterConfig.sum([4, 5, 1, 10]) == 20
+        assert mockDefinition.sumCalled
 
-        then:
-        testFilterConfig.sum([4, 5, 1, 10]) == 20
-        mockDefinition.sumCalled
-
-        when:
         mockDefinition.reset()
+        assert testFilterConfig.sum([12, 26, 3, 41]) == 82
+        assert mockDefinition.sumCalled
 
-        then:
-        testFilterConfig.sum([12, 26, 3, 41]) == 82
-        mockDefinition.sumCalled
-        testFilterConfig.methodMissingCounter == 0
+        assert testFilterConfig.methodMissingCounter == 0
 
-        when: "And now make sure the 'run' method is still available."
+        // And now make sure the 'run' method is still available.
         mockDefinition.reset()
         testFilterConfig.run()
+        assert mockDefinition.runCalled
 
-        then:
-        mockDefinition.runCalled
-
-        when: "Any other property access should result in this exception."
-        testFilterConfig.unknownMethod(23)
-
-        then:
-        thrown(MissingMethodException)
+        // Any other property access should result in this exception.
+        shouldFail(MissingMethodException) {
+            testFilterConfig.unknownMethod(23)
+        }
     }
 
     // test for GRAILS-9050
@@ -219,7 +184,7 @@ class FilterConfigSpec extends Specification {
 }
 
 class MethodMissingCountingFilterConfig extends FilterConfig {
-    int methodMissingCounter = 0
+    int methodMissingCounter=0
 
     def methodMissing(String methodName, args) {
         methodMissingCounter++
@@ -271,7 +236,7 @@ class MockFiltersDefinition {
     }
 
     def hello() {
-        helloCalled = true
+        helloCalled=true
         "Hello from definition 1"
     }
 
@@ -291,7 +256,7 @@ class MockFiltersDefinition {
 class MockFiltersDefinition2 extends MockFiltersDefinition {
 
     def hello() {
-        helloCalled = true
+        helloCalled=true
         "Hello from definition 2"
     }
 }
